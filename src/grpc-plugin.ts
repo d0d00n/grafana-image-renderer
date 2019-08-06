@@ -2,7 +2,7 @@ import * as grpc from 'grpc';
 import { Logger } from './logger';
 import { Browser } from './browser';
 
-const SERVER_ADDRESS = '127.0.0.1:50059';
+const SERVER_ADDRESS = '127.0.0.1:8080';
 const RENDERER_PROTO_PATH = __dirname + '/../proto/renderer.proto';
 const GRPC_HEALTH_PROTO_PATH = __dirname + '/../proto/health.proto';
 
