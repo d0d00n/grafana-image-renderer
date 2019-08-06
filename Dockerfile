@@ -34,6 +34,18 @@ COPY --from=build /usr/src/app/proto proto
 
 EXPOSE 8081
 
+### Setup user for build execution and application runtime
+ENV APP_ROOT=/opt/app-root
+ENV PATH=${APP_ROOT}/bin:${PATH} HOME=${APP_ROOT}
+COPY bin/ ${APP_ROOT}/bin/
+RUN chmod -R u+x ${APP_ROOT}/bin && \
+    chgrp -R 0 ${APP_ROOT} && \
+    chmod -R g=u ${APP_ROOT} /etc/passwd
+
+### Containers should NOT run as root as a good practice
+USER 10001
+WORKDIR ${APP_ROOT}
+
 ENTRYPOINT ["dumb-init", "--"]
 
 CMD ["node", "build/app.js", "server", "--port=8081"]
